@@ -9,13 +9,6 @@ import (
 	"time"
 )
 
-func StartBatchProcessor() {
-	ticker := time.NewTicker(time.Duration(models.BatchInterval) * time.Second)
-	for range ticker.C {
-		SendBatch()
-	}
-}
-
 func SendBatch() {
 	models.CacheMutex.Lock()
 	if len(models.Cache) == 0 {
@@ -46,8 +39,7 @@ func postData(data []models.LogPayload) bool {
 		models.Logger.Error("Failed to serialize batch: ", err)
 		return false
 	}
-
-	resp, err := http.Post("http://localhost:8080/log", "application/json", bytes.NewBuffer(body))
+	resp, err := http.Post(models.PostEndpoint, "application/json", bytes.NewBuffer(body))
 	duration := time.Since(start)
 
 	if err != nil {
