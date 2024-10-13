@@ -4,17 +4,14 @@ import (
 	"benzinga-backend-golang/controllers"
 	"benzinga-backend-golang/models"
 	"benzinga-backend-golang/utils"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// Load configuration from environment variables
-	utils.InitConfig() // Initialize logger
+	utils.LoadConfig() // load configs
 
-	utils.InitLogger()
-
-	// Start batch processing ticker
-	go utils.StartBatchProcessor()
+	utils.InitLogger() // Initialize logger
 
 	// Setup router and endpoints
 	router := gin.Default()

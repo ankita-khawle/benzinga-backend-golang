@@ -1,12 +1,14 @@
 package utils
 
 import (
+	"benzinga-backend-golang/models"
 	"log"
 	"os"
 	"strconv"
+
 	"github.com/joho/godotenv"
-	"benzinga-backend-golang/models"
 )
+
 func getEnv(key, defaultValue string) string {
 	err := godotenv.Load("../.env")
 	if err != nil {
@@ -20,7 +22,7 @@ func getEnv(key, defaultValue string) string {
 	return value
 }
 
-func InitConfig(){
+func LoadConfig() {
 	var err error
 	models.BatchSize, err = strconv.Atoi(getEnv("BATCH_SIZE", "5"))
 	if err != nil {
