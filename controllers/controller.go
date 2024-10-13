@@ -2,22 +2,11 @@ package controllers
 
 import (
 	"benzinga-backend-golang/models"
+	"benzinga-backend-golang/utils"
 	"net/http"
-	"sync"
-
-	// "benzinga-backend-golang/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
-var (
-	cache         []models.LogPayload
-	cacheMutex    sync.Mutex
-	batchSize     int
-	batchInterval int
-	postEndpoint  string
-	logger        = logrus.New()
-)
 
 func HealthCheck(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
@@ -26,20 +15,19 @@ func HealthCheck(c *gin.Context) {
 func HandleLog(c *gin.Context) {
 	var payload models.LogPayload
 	if err := c.ShouldBindJSON(&payload); err != nil {
-		logger.Warn("Invalid JSON payload: ", err)
+		models.Logger.Warn("Invalid JSON payload: ", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
 
-	cacheMutex.Lock()
-	cache = append(cache, payload)
-	cacheMutex.Unlock()
+	models.CacheMutex.Lock()
+	models.Cache = append(models.Cache, payload)
+	models.CacheMutex.Unlock()
 
-	logger.Info("Payload added to cache, current size:", len(cache))
+	models.Logger.Info("Payload added to cache, current size:", len(models.Cache))
 
 	// Check if batch size is reached
-	if len(cache) >= batchSize {
-		// batch.sendBatch()
-
+	if len(models.Cache) >= models.BatchSize {
+		utils.SendBatch()
 	}
 }
