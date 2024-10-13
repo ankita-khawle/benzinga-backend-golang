@@ -1,23 +1,22 @@
 package utils
 
 import (
+	"benzinga-backend-golang/models"
 	"bytes"
 	"encoding/json"
-	"benzinga-backend-golang/models"
 	"net/http"
 	"os"
 	"time"
 )
 
-
 func StartBatchProcessor() {
 	ticker := time.NewTicker(time.Duration(models.BatchInterval) * time.Second)
 	for range ticker.C {
-		sendBatch()
+		SendBatch()
 	}
 }
 
-func sendBatch() {
+func SendBatch() {
 	models.CacheMutex.Lock()
 	if len(models.Cache) == 0 {
 		models.CacheMutex.Unlock()
@@ -48,7 +47,7 @@ func postData(data []models.LogPayload) bool {
 		return false
 	}
 
-	resp, err := http.Post(models.PostEndpoint, "application/json", bytes.NewBuffer(body))
+	resp, err := http.Post("http://localhost:8080/log", "application/json", bytes.NewBuffer(body))
 	duration := time.Since(start)
 
 	if err != nil {
