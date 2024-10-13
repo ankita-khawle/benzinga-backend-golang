@@ -2,6 +2,7 @@ package models
 
 import (
 	"sync"
+
 	"github.com/sirupsen/logrus"
 )
 
@@ -29,10 +30,10 @@ type PhoneNumbers struct {
 }
 
 var (
-	cache         []LogPayload
-	cacheMutex    sync.Mutex
-	batchSize     int
-	batchInterval int
-	postEndpoint  string
-	logger        = logrus.New()
+	Cache         []LogPayload
+	CacheMutex    sync.Mutex
+	BatchSize     int
+	BatchInterval int
+	PostEndpoint  string
+	Logger        = logrus.New()
 )

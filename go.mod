@@ -1,4 +1,4 @@
-module github.com/ankita-khawle/benzinga-backend-golang
+module benzinga-backend-golang
 
 go 1.23.2
 

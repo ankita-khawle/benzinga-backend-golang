@@ -2,11 +2,11 @@ package utils
 
 import (
 	"github.com/sirupsen/logrus"
+	"benzinga-backend-golang/models"
 )
 
-
-func initLogger() {
-	logger.SetFormatter(&logrus.JSONFormatter{})
-	logger.SetLevel(logrus.InfoLevel)
-	logger.Info("Logger initialized")
+func InitLogger() {
+	models.Logger.SetFormatter(&logrus.JSONFormatter{})
+	models.Logger.SetLevel(logrus.InfoLevel)
+	models.Logger.Info("Logger initialized")
 }
