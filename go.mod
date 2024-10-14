@@ -5,6 +5,7 @@ go 1.23.2
 require github.com/sirupsen/logrus v1.9.3
 
 require (
+	github.com/PipedreamHQ/pipedream-go v0.0.0-20221011160831-6bb9b0704a03 // indirect
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
