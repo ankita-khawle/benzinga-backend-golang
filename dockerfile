@@ -19,10 +19,9 @@ RUN go build -o server
 # Use a minimal image to run the application
 FROM alpine:latest
 
-WORKDIR /root/
-
+WORKDIR /main/
 # Copy the built server from the builder
-COPY --from=builder /app/server .
+COPY --from=builder /main/server .
 
 # Expose port 8080
 EXPOSE 8080

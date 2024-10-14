@@ -8,6 +8,12 @@ import (
 	"os"
 	"time"
 )
+func StartBatchProcessor() {
+	ticker := time.NewTicker(time.Duration(models.BatchInterval) * time.Second)
+	for range ticker.C { //to run after the batch interval is reached 
+		SendBatch()
+	}
+}
 
 func SendBatch() {
 	models.CacheMutex.Lock()

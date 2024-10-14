@@ -36,5 +36,5 @@ func LoadConfig() {
 
 	models.PostEndpoint = getEnv("POST_ENDPOINT", "http://localhost:8080")
 
-	models.Logger.Info("Configuration - Batch Size:", models.BatchSize, "Batch Interval:", models.BatchInterval, "Post Endpoint:", models.PostEndpoint)
+	models.Logger.Info("Configuration - Batch Size: ", models.BatchSize, "Batch Interval: ", models.BatchInterval, "Post Endpoint: ", models.PostEndpoint)
 }

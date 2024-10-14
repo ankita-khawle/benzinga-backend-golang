@@ -13,6 +13,9 @@ func main() {
 
 	utils.InitLogger() // Initialize logger
 
+	// Start batch processing for batch interval
+	go utils.StartBatchProcessor()
+
 	// Setup router and endpoints
 	router := gin.Default()
 	router.GET("/healthz", controllers.HealthCheck)
